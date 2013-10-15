@@ -8,3 +8,6 @@
   that means in the context of WebRTC.
 
 **/
+module.exports = function(input) {
+  return {};
+};
