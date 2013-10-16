@@ -52,7 +52,7 @@ CaptureConfig.prototype.max = function(data) {
   var res;
 
   // if this is an fps specification parse
-  if (data.slice(-3) == 'fps') {
+  if (data.slice(-3).toLowerCase() == 'fps') {
     return this.maxfps(data);
   }
 
@@ -70,6 +70,11 @@ CaptureConfig.prototype.max = function(data) {
   Update the maximum fps
 **/
 CaptureConfig.prototype.maxfps = function(data) {
+  // ensure we have an fps component
+  this.cfg.fps = this.cfg.fps || {};
+
+  // set the max fps
+  this.cfg.fps.max = parseInt(data.slice(0, -3), 10);
 };
 
 /**
@@ -82,7 +87,7 @@ CaptureConfig.prototype.min = function(data) {
   var res;
 
   // if this is an fps specification parse
-  if (data.slice(-3) == 'fps') {
+  if (data.slice(-3).toLowerCase() == 'fps') {
     return this.minfps(data);
   }
 
@@ -94,11 +99,6 @@ CaptureConfig.prototype.min = function(data) {
 
   // add the min
   this.cfg.res.min = res;
-
-  // if no max is currently specified, then add it now
-  if (! this.cfg.res.max) {
-    this.cfg.res.max = res;
-  }
 };
 
 /**
@@ -107,6 +107,11 @@ CaptureConfig.prototype.min = function(data) {
   Update the minimum fps
 **/
 CaptureConfig.prototype.minfps = function(data) {
+  // ensure we have an fps component
+  this.cfg.fps = this.cfg.fps || {};
+
+  // set the max fps
+  this.cfg.fps.min = parseInt(data.slice(0, -3), 10);
 };
 
 /**
