@@ -38,5 +38,5 @@ CaptureConfig.prototype.camera = function(index) {
   Update the microphone configuration to the specified index
 **/ 
 CaptureConfig.prototype.microphone = function(index) {
-  this.cfg.microphone = parseInt(index || 0, radix);
+  this.cfg.microphone = parseInt(index || 0, 10);
 };
