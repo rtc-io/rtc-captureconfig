@@ -1,7 +1,7 @@
 {
-  "name": "rtc-streamclass",
+  "name": "rtc-captureclass",
   "version": "0.0.0",
-  "description": "Simple string descriptors for WebRTC video and audio streams",
+  "description": "Simple string definition -> WebRTC constraints",
   "main": "index.js",
   "scripts": {
     "test": "node test/all.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rtc-io/rtc-streamclass.git"
+    "url": "https://github.com/rtc-io/rtc-captureclass.git"
   },
   "keywords": [
     "webrtc",
@@ -18,10 +18,9 @@
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "license": "Apache 2.0",
   "bugs": {
-    "url": "https://github.com/rtc-io/rtc-streamclass/issues"
+    "url": "https://github.com/rtc-io/rtc-captureclass/issues"
   },
   "devDependencies": {
-    "tape": "~2.0.0",
-    "pegjs": "~0.7.0"
+    "tape": "~2.0.0"
   }
 }
