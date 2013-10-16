@@ -21,7 +21,7 @@ module.exports = function(input) {
   (input || '').split(reSeparator).forEach(function(directive) {
     // now further split the directive on the : character
     var parts = directive.split(':');
-    var method = config[parts[0]];
+    var method = config[(parts[0] || '').toLowerCase()];
 
     // if we have the method apply
     if (typeof method == 'function') {
