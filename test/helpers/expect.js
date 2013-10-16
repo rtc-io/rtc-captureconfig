@@ -1,8 +1,8 @@
-var streamclass = require('../../');
+var captureclass = require('../../');
 
 module.exports = function(expected) {
   return function(t) {
     t.plan(1);
-    t.deepEqual(expected, streamclass(t.name));
+    t.deepEqual(expected, captureclass(t.name).cfg);
   };
 };
