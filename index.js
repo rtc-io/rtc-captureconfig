@@ -11,19 +11,26 @@ var reSeparator = /[\,\s]\s*/;
 
 **/
 module.exports = function(input) {
-  // split into tokens on spaces
-  var directives = input.split(reSeparator);
+  // create a new configuration object using defaults
+  var config = { microphone: 0 };
 
-  // create a new configuration object
-  var config = {};
+  // process each of the directives
+  (input || '').split(reSeparator).forEach(function(directive) {
+    // now further split the directive on the : character
+    var parts = directive.split(':');
 
-  // 
-  directives.forEach(function(directive) {
+    // make decisions based on the first part
+    switch (parts[0]) {
+      case 'camera': {
+        config.camera = parseInt(parts[1] || 0, 10);
+        break;
+      }
 
+      default: {
+
+      }
+    }
   });
 
-  // iterate through the directives and apply our logic
-  console.log(directives);
-
-  return {};
+  return config;
 };
