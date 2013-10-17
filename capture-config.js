@@ -1,6 +1,8 @@
 /* jshint node: true */
 'use strict';
 
+var offFlags = ['false', 'none', 'off'];
+
 /**
   ### CaptureConfig
 
@@ -23,26 +25,34 @@ function CaptureConfig() {
 module.exports = CaptureConfig;
 
 /**
-  ### camera(index)
+  #### camera(index)
 
   Update the camera configuration to the specified index
 **/
 CaptureConfig.prototype.camera = function(index) {
+  if (typeof index == 'string' && offFlags.indexOf(index.toLowerCase()) >= 0) {
+    return this.cfg.camera = undefined;
+  }
+
   // initialise the camera
   this.cfg.camera = parseInt(index || 0, 10);
 };
 
 /**
-  ### microphone(index)
+  #### microphone(index)
 
   Update the microphone configuration to the specified index
 **/ 
 CaptureConfig.prototype.microphone = function(index) {
+  if (typeof index == 'string' && offFlags.indexOf(index.toLowerCase()) >= 0) {
+    return this.cfg.microphone = undefined;
+  }
+
   this.cfg.microphone = parseInt(index || 0, 10);
 };
 
 /**
-  ### max(data)
+  #### max(data)
 
   Update a maximum constraint.  If an fps constraint this will be directed
   to the `maxfps` modifier.
@@ -65,7 +75,7 @@ CaptureConfig.prototype.max = function(data) {
 };
 
 /**
-  ### maxfps(data)
+  #### maxfps(data)
 
   Update the maximum fps
 **/
@@ -74,11 +84,11 @@ CaptureConfig.prototype.maxfps = function(data) {
   this.cfg.fps = this.cfg.fps || {};
 
   // set the max fps
-  this.cfg.fps.max = parseInt(data.slice(0, -3), 10);
+  this.cfg.fps.max = parseFloat(data.slice(0, -3));
 };
 
 /**
-  ### min(data)
+  #### min(data)
 
   Update a minimum constraint.  This can be either related to resolution
   or FPS.
@@ -102,7 +112,7 @@ CaptureConfig.prototype.min = function(data) {
 };
 
 /**
-  ### minfps(data)
+  #### minfps(data)
 
   Update the minimum fps
 **/
@@ -111,11 +121,59 @@ CaptureConfig.prototype.minfps = function(data) {
   this.cfg.fps = this.cfg.fps || {};
 
   // set the max fps
-  this.cfg.fps.min = parseInt(data.slice(0, -3), 10);
+  this.cfg.fps.min = parseFloat(data.slice(0, -3));
 };
 
 /**
-  ### _parseRes(data)
+  #### toConstraints(version?)
+
+  Convert the internal configuration object to a valid media constraints
+  representation.
+**/
+CaptureConfig.prototype.toConstraints = function() {
+  var cfg = this.cfg;
+  var constraints = {
+    audio: typeof cfg.microphone != 'undefined',
+    video: typeof cfg.camera != 'undefined'
+  };
+  var mandatory = {};
+  var optional = [];
+
+  // create a video object if we have other criteria
+  if (constraints.video && (cfg.fps || cfg.resolution)) {
+    constraints.video = {
+      mandatory: mandatory,
+      optional: optional
+    }
+  }
+
+  // fps
+  if (cfg.fps) {
+    cfg.fps.min && (mandatory.minFrameRate = cfg.fps.min);
+    cfg.fps.max && (mandatory.maxFrameRate = cfg.fps.max);
+  }
+
+  // min res specified
+  if (cfg.res && cfg.res.min) {
+    mandatory.minWidth = cfg.res.min.w;
+    mandatory.minHeight = cfg.res.min.h;
+  }
+
+  // max res specified
+  if (cfg.res && cfg.res.max) {
+    mandatory.maxWidth = cfg.res.max.w;
+    mandatory.maxHeight = cfg.res.max.h;
+  }
+
+  return constraints;
+};
+
+/**
+  ### "Internal" methods
+**/
+
+/**
+  #### _parseRes(data)
 
   Parse a resolution specifier (e.g. 1280x720) into a simple JS object
   (e.g. { w: 1280, h: 720 })
