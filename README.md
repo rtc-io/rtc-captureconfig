@@ -4,9 +4,9 @@ This is a simple parser that takes a string of text and determines what
 that means in the context of WebRTC.
 
 
-[![NPM](https://nodei.co/npm/rtc-captureclass.png)](https://nodei.co/npm/rtc-captureclass/)
+[![NPM](https://nodei.co/npm/rtc-captureconfig.png)](https://nodei.co/npm/rtc-captureconfig/)
 
-[![Build Status](https://travis-ci.org/rtc-io/rtc-captureclass.png?branch=master)](https://travis-ci.org/rtc-io/rtc-captureclass)
+[![Build Status](https://travis-ci.org/rtc-io/rtc-captureconfig.png?branch=master)](https://travis-ci.org/rtc-io/rtc-captureconfig)
 [![unstable](http://hughsk.github.io/stability-badges/dist/unstable.svg)](http://github.com/hughsk/stability-badges)
 
 ## Why?
@@ -69,6 +69,8 @@ a getUserMedia call:
 ```
 
 ## Reference
+
+ exports
 
 ### CaptureConfig
 
