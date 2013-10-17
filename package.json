@@ -1,6 +1,6 @@
 {
   "name": "rtc-captureclass",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Simple string definition -> WebRTC constraints",
   "main": "index.js",
   "scripts": {
