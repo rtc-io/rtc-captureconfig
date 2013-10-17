@@ -51,7 +51,22 @@ var CaptureConfig = require('./capture-config');
   a getUserMedia call:
 
   ```js
-  { tbc: true }
+  {
+    audio: true,
+    video: {
+      mandatory: {
+        minFrameRate: 15,
+        maxFrameRate: 25,
+
+        minWidth: 1280,
+        minHeight: 720,
+        maxWidth: 1280,
+        maxHeight: 720
+      },
+
+      optional: []
+    }
+  }
   ```
 
   ## Reference

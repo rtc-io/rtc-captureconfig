@@ -50,7 +50,22 @@ Which in turn is converted into the following media constraints for
 a getUserMedia call:
 
 ```js
-{ tbc: true }
+{
+  audio: true,
+  video: {
+    mandatory: {
+      minFrameRate: 15,
+      maxFrameRate: 25,
+
+      minWidth: 1280,
+      minHeight: 720,
+      maxWidth: 1280,
+      maxHeight: 720
+    },
+
+    optional: []
+  }
+}
 ```
 
 ## Reference
@@ -61,33 +76,40 @@ This is a utility class that is used to update capture configuration
 details and is able to generate suitable getUserMedia constraints based
 on the configuration.
 
-### camera(index)
+#### camera(index)
 
 Update the camera configuration to the specified index
 
-### microphone(index)
+#### microphone(index)
 
 Update the microphone configuration to the specified index
 
-### max(data)
+#### max(data)
 
 Update a maximum constraint.  If an fps constraint this will be directed
 to the `maxfps` modifier.
 
-### maxfps(data)
+#### maxfps(data)
 
 Update the maximum fps
 
-### min(data)
+#### min(data)
 
 Update a minimum constraint.  This can be either related to resolution
 or FPS.
 
-### minfps(data)
+#### minfps(data)
 
 Update the minimum fps
 
-### _parseRes(data)
+#### toConstraints(version?)
+
+Convert the internal configuration object to a valid media constraints
+representation.
+
+### "Internal" methods
+
+#### _parseRes(data)
 
 Parse a resolution specifier (e.g. 1280x720) into a simple JS object
 (e.g. { w: 1280, h: 720 })
