@@ -25,8 +25,34 @@ var CaptureConfig = require('./capture-config');
   For example, the following text input:
 
   ```
+  camera min:1280x720 max:1280x720 min:15fps max:25fps
+  ```
+
+  Is converted into an intermedia representation (via the `CaptureConfig`
+  utility class) that looks like the following:
+
+  ```js
+  {
+    camera: 0,
+    microphone: 0,
+    res: {
+      min: { w: 1280, h: 720 },
+      max: { w: 1280, h: 720 }
+    },
+
+    fps: {
+      min: 15,
+      max: 25
+    }
+  }
   ```
   
+  Which in turn is converted into the following media constraints for
+  a getUserMedia call:
+
+  ```js
+  { tbc: true }
+  ```
 
   ## Examples
 
