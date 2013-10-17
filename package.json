@@ -1,5 +1,5 @@
 {
-  "name": "rtc-captureclass",
+  "name": "rtc-captureconfig",
   "version": "0.1.0",
   "description": "Simple string definition -> WebRTC constraints",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rtc-io/rtc-captureclass.git"
+    "url": "https://github.com/rtc-io/rtc-captureconfig.git"
   },
   "keywords": [
     "webrtc",
@@ -18,7 +18,7 @@
   "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
   "license": "Apache 2.0",
   "bugs": {
-    "url": "https://github.com/rtc-io/rtc-captureclass/issues"
+    "url": "https://github.com/rtc-io/rtc-captureconfig/issues"
   },
   "devDependencies": {
     "tape": "~2.0.0"
