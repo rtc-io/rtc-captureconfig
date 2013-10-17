@@ -54,8 +54,6 @@ var CaptureConfig = require('./capture-config');
   { tbc: true }
   ```
 
-  ## Examples
-
   ## Reference
 
 **/

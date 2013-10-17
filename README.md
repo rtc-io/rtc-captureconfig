@@ -53,11 +53,9 @@ a getUserMedia call:
 { tbc: true }
 ```
 
-## Examples
-
 ## Reference
 
-## CaptureConfig
+### CaptureConfig
 
 This is a utility class that is used to update capture configuration
 details and is able to generate suitable getUserMedia constraints based
@@ -89,7 +87,7 @@ or FPS.
 
 Update the minimum fps
 
-### _parseRes(data) __internal__
+### _parseRes(data)
 
 Parse a resolution specifier (e.g. 1280x720) into a simple JS object
 (e.g. { w: 1280, h: 720 })
