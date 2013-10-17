@@ -140,7 +140,7 @@ CaptureConfig.prototype.toConstraints = function() {
   var optional = [];
 
   // create a video object if we have other criteria
-  if (constraints.video && (cfg.fps || cfg.resolution)) {
+  if (constraints.video && (cfg.fps || cfg.res)) {
     constraints.video = {
       mandatory: mandatory,
       optional: optional
