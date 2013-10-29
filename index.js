@@ -47,7 +47,7 @@ var offFlags = ['false', 'none', 'off'];
     }
   }
   ```
-  
+
   Which in turn is converted into the following media constraints for
   a getUserMedia call:
 
@@ -132,7 +132,7 @@ CaptureConfig.prototype.camera = function(index) {
   #### microphone(index)
 
   Update the microphone configuration to the specified index
-**/ 
+**/
 CaptureConfig.prototype.microphone = function(index) {
   if (typeof index == 'string' && offFlags.indexOf(index.toLowerCase()) >= 0) {
     return this.cfg.microphone = undefined;
