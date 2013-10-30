@@ -111,8 +111,27 @@ representation.  In compatible browsers a list of media sources can
 be passed through in the `opts.sources` to create contraints that will
 target a specific device when captured.
 
-```
-ERROR: could not find: 
+```js
+var media = require('rtc-media');
+var capture = require('rtc-captureconfig');
+
+// get the sources
+MediaStreamTrack.getSources(function(sources) {
+  // get the cameras
+  var cameras = sources.filter(function(info) {
+    return info && info.kind === 'video';
+  });
+
+  // create videos
+  var videos = cameras.map(function(info, idx) {
+    return media(capture('camera:' + idx).toConstraints({ sources: sources }));
+  });
+
+  // render the videos
+  videos.forEach(function(vid) {
+    vid.render(document.body);
+  });
+});
 ```
 
 ### "Internal" methods

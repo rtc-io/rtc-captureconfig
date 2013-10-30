@@ -213,7 +213,7 @@ CaptureConfig.prototype.minfps = function(data) {
   be passed through in the `opts.sources` to create contraints that will
   target a specific device when captured.
 
-  <<< examples/sources.js
+  <<< examples/capture-targets.js
 
 **/
 CaptureConfig.prototype.toConstraints = function(opts) {
