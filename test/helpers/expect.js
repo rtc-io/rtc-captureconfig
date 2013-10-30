@@ -1,10 +1,10 @@
-var captureclass = require('../../');
+var captureconfig = require('../../');
 
 module.exports = function(expected) {
   return function(t) {
     t.plan(1);
     t.deepEqual(
-      captureclass(t.name).cfg,
+      captureconfig(t.name).cfg,
       expected,
       JSON.stringify(expected)
     );

@@ -245,6 +245,7 @@ CaptureConfig.prototype.toConstraints = function(opts) {
   var microphones = sources.filter(function(info) {
     return info && info.kind === 'audio';
   });
+  var selectedSource;
 
   function complexConstraints(target) {
     if (constraints[target] && typeof constraints[target] != 'object') {
@@ -277,14 +278,24 @@ CaptureConfig.prototype.toConstraints = function(opts) {
   }
 
   // input camera selection
-  if (typeof cfg.camera == 'number' && sources) {
-    var source = cameras[cfg.camera];
+  if (typeof cfg.camera == 'number' && cameras.length) {
+    selectedSource = cameras[cfg.camera];
 
-    if (source) {
+    if (selectedSource) {
       complexConstraints('video');
-      o.video.push({ sourceId: source.id });
+      o.video.push({ sourceId: selectedSource.id });
     }
   }
+
+  // input microphone selection
+  if (typeof cfg.microphone == 'number' && microphones.length) {
+    selectedSource = microphones[cfg.microphone];
+
+    if (selectedSource) {
+      complexConstraints('audio');
+      o.audio.push({ sourceId: selectedSource.id });
+    }
+  };
 
   return constraints;
 };

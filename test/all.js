@@ -11,3 +11,6 @@ require('./camera-fps-constraints');
 require('./camera-combo-constraints');
 require('./camera-noaudio-constraints');
 require('./camera-targets-constraints');
+
+// constraints with source information tests
+require('./camera-targets-constraints-sourced');
