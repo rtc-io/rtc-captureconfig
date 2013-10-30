@@ -104,10 +104,16 @@ or FPS.
 
 Update the minimum fps
 
-#### toConstraints(version?)
+#### toConstraints(opts?)
 
 Convert the internal configuration object to a valid media constraints
-representation.
+representation.  In compatible browsers a list of media sources can
+be passed through in the `opts.sources` to create contraints that will
+target a specific device when captured.
+
+```
+ERROR: could not find: 
+```
 
 ### "Internal" methods
 
