@@ -110,7 +110,7 @@ function CaptureConfig() {
 
   // initialise the base config
   this.cfg = {
-    microphone: 0
+    microphone: true
   };
 }
 
@@ -120,12 +120,7 @@ function CaptureConfig() {
   Update the camera configuration to the specified index
 **/
 CaptureConfig.prototype.camera = function(index) {
-  if (typeof index == 'string' && offFlags.indexOf(index.toLowerCase()) >= 0) {
-    return this.cfg.camera = undefined;
-  }
-
-  // initialise the camera
-  this.cfg.camera = parseInt(index || 0, 10);
+  this.cfg.camera = trueOrValue(index);
 };
 
 /**
@@ -134,11 +129,7 @@ CaptureConfig.prototype.camera = function(index) {
   Update the microphone configuration to the specified index
 **/
 CaptureConfig.prototype.microphone = function(index) {
-  if (typeof index == 'string' && offFlags.indexOf(index.toLowerCase()) >= 0) {
-    return this.cfg.microphone = undefined;
-  }
-
-  this.cfg.microphone = parseInt(index || 0, 10);
+  this.cfg.microphone = trueOrValue(index);
 };
 
 /**
@@ -223,8 +214,11 @@ CaptureConfig.prototype.minfps = function(data) {
 CaptureConfig.prototype.toConstraints = function() {
   var cfg = this.cfg;
   var constraints = {
-    audio: typeof cfg.microphone != 'undefined',
-    video: typeof cfg.camera != 'undefined'
+    audio: cfg.microphone === true ||
+      (typeof cfg.microphone == 'number' && cfg.microphone >= 0),
+
+    video: cfg.camera === true ||
+      (typeof cfg.camera == 'number' && cfg.camera >= 0)
   };
   var mandatory = {};
   var optional = [];
@@ -283,3 +277,13 @@ CaptureConfig.prototype._parseRes = function(data) {
     h: parseInt(parts[1], 10)
   };
 };
+
+/* internal helper */
+
+function trueOrValue(val) {
+  if (typeof val == 'string' && offFlags.indexOf(val.toLowerCase()) >= 0) {
+    return false;
+  }
+
+  return val === undefined || val === '' || parseInt(val || 0, 10);
+}
