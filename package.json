@@ -21,6 +21,7 @@
     "url": "https://github.com/rtc-io/rtc-captureconfig/issues"
   },
   "devDependencies": {
-    "tape": "~2.0.0"
+    "tape": "~2.1.0",
+    "rtc-media": "~1.1.0"
   }
 }

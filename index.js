@@ -206,12 +206,17 @@ CaptureConfig.prototype.minfps = function(data) {
 };
 
 /**
-  #### toConstraints(version?)
+  #### toConstraints(opts?)
 
   Convert the internal configuration object to a valid media constraints
-  representation.
+  representation.  In compatible browsers a list of media sources can
+  be passed through in the `opts.sources` to create contraints that will
+  target a specific device when captured.
+
+  <<< examples/sources.js
+
 **/
-CaptureConfig.prototype.toConstraints = function() {
+CaptureConfig.prototype.toConstraints = function(opts) {
   var cfg = this.cfg;
   var constraints = {
     audio: cfg.microphone === true ||
@@ -220,33 +225,65 @@ CaptureConfig.prototype.toConstraints = function() {
     video: cfg.camera === true ||
       (typeof cfg.camera == 'number' && cfg.camera >= 0)
   };
-  var mandatory = {};
-  var optional = [];
 
-  // create a video object if we have other criteria
-  if (constraints.video && (cfg.fps || cfg.res)) {
-    constraints.video = {
-      mandatory: mandatory,
-      optional: optional
+  // mandatory constraints
+  var m = {
+    video: {},
+    audio: {}
+  };
+
+  // optional constraints
+  var o = {
+    video: [],
+    audio: []
+  };
+
+  var sources = (opts || {}).sources || [];
+  var cameras = sources.filter(function(info) {
+    return info && info.kind === 'video';
+  });
+  var microphones = sources.filter(function(info) {
+    return info && info.kind === 'audio';
+  });
+
+  function complexConstraints(target) {
+    if (constraints[target] && typeof constraints[target] != 'object') {
+      constraints[target] = {
+        mandatory: m[target],
+        optional: o[target]
+      };
     }
   }
 
   // fps
   if (cfg.fps) {
-    cfg.fps.min && (mandatory.minFrameRate = cfg.fps.min);
-    cfg.fps.max && (mandatory.maxFrameRate = cfg.fps.max);
+    complexConstraints('video');
+    cfg.fps.min && (m.video.minFrameRate = cfg.fps.min);
+    cfg.fps.max && (m.video.maxFrameRate = cfg.fps.max);
   }
 
   // min res specified
   if (cfg.res && cfg.res.min) {
-    mandatory.minWidth = cfg.res.min.w;
-    mandatory.minHeight = cfg.res.min.h;
+    complexConstraints('video');
+    m.video.minWidth = cfg.res.min.w;
+    m.video.minHeight = cfg.res.min.h;
   }
 
   // max res specified
   if (cfg.res && cfg.res.max) {
-    mandatory.maxWidth = cfg.res.max.w;
-    mandatory.maxHeight = cfg.res.max.h;
+    complexConstraints('video');
+    m.video.maxWidth = cfg.res.max.w;
+    m.video.maxHeight = cfg.res.max.h;
+  }
+
+  // input camera selection
+  if (typeof cfg.camera == 'number' && sources) {
+    var source = cameras[cfg.camera];
+
+    if (source) {
+      complexConstraints('video');
+      o.video.push({ sourceId: source.id });
+    }
   }
 
   return constraints;
