@@ -70,11 +70,21 @@ var offFlags = ['false', 'none', 'off'];
   }
   ```
 
+  ### Targeted Device Capture
+
+  While the `rtc-captureconfig` module itself doesn't contain any media
+  identification logic, it is able to the sources information from a
+  `MediaStreamTrack.getSources` call to generate device targeted constraints.
+
+  For instance, the following example demonstrates how we can request
+  `camera:1` (the 2nd video device on our local machine) when we are making
+  a getUserMedia call:
+
+  <<< examples/camera-two.js
+
   ## Reference
 
 **/
-
-/** exports **/
 
 module.exports = function(input) {
   // create a new configuration object using defaults
