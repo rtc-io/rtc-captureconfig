@@ -90,6 +90,18 @@ var getUserMedia = require('getusermedia');
 MediaStreamTrack.getSources(function(sources) {
   var constraints = capture('camera:1').toConstraints({ sources: sources });
 
+  /* here is an example of what the generated constraints actually look like
+  var constraints = {
+    audio:true,
+    video: {
+      mandatory: {},
+      optional: [
+        { sourceId: '30a3f6408175c22df739bcbf9573d841d9f992894c8c129f42a9529ffcbbcddc' }
+      ]
+    }
+  };
+  */
+
   // get user media
   getUserMedia(constraints, function(err, stream) {
     if (err) {
