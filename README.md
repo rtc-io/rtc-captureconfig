@@ -96,7 +96,7 @@ MediaStreamTrack.getSources(function(sources) {
     video: {
       mandatory: {},
       optional: [
-        { sourceId: '30a3f6408175c22df739bcbf9573d841d9f992894c8c129f42a9529ffcbbcddc' }
+        { sourceId: '30a3f6408175c22df739bcbf9573d841d9f99289' }
       ]
     }
   };
