@@ -68,9 +68,40 @@ a getUserMedia call:
 }
 ```
 
-## Reference
+### Targeted Device Capture
 
- exports
+While the `rtc-captureconfig` module itself doesn't contain any media
+identification logic, it is able to the sources information from a
+`MediaStreamTrack.getSources` call to generate device targeted constraints.
+
+For instance, the following example demonstrates how we can request
+`camera:1` (the 2nd video device on our local machine) when we are making
+a getUserMedia call:
+
+```js
+// load in capture config
+var capture = require('rtc-captureconfig');
+
+// pull in the getusermedia helper module
+// see: https://github.com/HenrikJoreteg/getUserMedia
+var getUserMedia = require('getusermedia');
+
+// get the sources
+MediaStreamTrack.getSources(function(sources) {
+  var constraints = capture('camera:1').toConstraints({ sources: sources });
+
+  // get user media
+  getUserMedia(constraints, function(err, stream) {
+    if (err) {
+      return console.log('Could not capture stream: ', err);
+    }
+
+    console.log('captured stream: ', stream);
+  });
+});
+```
+
+## Reference
 
 ### CaptureConfig
 

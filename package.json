@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "tape": "~2.1.0",
-    "rtc-media": "~1.1.0"
+    "rtc-media": "~1.1.0",
+    "getusermedia": "~0.2.1"
   }
 }
