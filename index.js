@@ -82,6 +82,12 @@ var offFlags = ['false', 'none', 'off'];
 
   <<< examples/camera-two.js
 
+  It's worth noting that if the requested device does not exist on the
+  machine (in the case above, if your machine only has a single webcam - as
+  is common) then no device selection constraints will be generated (i.e.
+  the standard `{ video: true, audio: true }` constraints will be returned
+  from the `toConstraints` call).
+
   ## Reference
 
 **/
