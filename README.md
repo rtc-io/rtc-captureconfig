@@ -68,7 +68,7 @@ a getUserMedia call:
 }
 ```
 
-### Targeted Device Capture
+### Experimental: Targeted Device Capture
 
 While the `rtc-captureconfig` module itself doesn't contain any media
 identification logic, it is able to the sources information from a
@@ -119,6 +119,34 @@ is common) then no device selection constraints will be generated (i.e.
 the standard `{ video: true, audio: true }` constraints will be returned
 from the `toConstraints` call).
 
+### Experimental: Screen Capture
+
+If you are working with chrome and serving content of a HTTPS connection,
+then you will be able to experiment with experimental getUserMedia screen
+capture.
+
+In the simplest case, screen capture can be invoked by using the capture
+string of:
+
+```
+screen
+```
+
+Which generates the following contraints:
+
+```js
+{
+  audio: false,
+  video: {
+    mandatory: {
+      chromeMediaSource: 'screen'
+    },
+
+    optional: []
+  }
+}
+```
+
 ## Reference
 
 ### CaptureConfig
@@ -134,6 +162,10 @@ Update the camera configuration to the specified index
 #### microphone(index)
 
 Update the microphone configuration to the specified index
+
+#### screen(target)
+
+Specify that we would like to capture the screen
 
 #### max(data)
 
