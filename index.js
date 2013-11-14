@@ -70,7 +70,7 @@ var offFlags = ['false', 'none', 'off'];
   }
   ```
 
-  ### Targeted Device Capture
+  ### Experimental: Targeted Device Capture
 
   While the `rtc-captureconfig` module itself doesn't contain any media
   identification logic, it is able to the sources information from a
@@ -87,6 +87,34 @@ var offFlags = ['false', 'none', 'off'];
   is common) then no device selection constraints will be generated (i.e.
   the standard `{ video: true, audio: true }` constraints will be returned
   from the `toConstraints` call).
+
+  ### Experimental: Screen Capture
+
+  If you are working with chrome and serving content of a HTTPS connection,
+  then you will be able to experiment with experimental getUserMedia screen
+  capture.
+
+  In the simplest case, screen capture can be invoked by using the capture
+  string of:
+
+  ```
+  screen
+  ```
+
+  Which generates the following contraints:
+
+  ```js
+  {
+    audio: false,
+    video: {
+      mandatory: {
+        chromeMediaSource: 'screen'
+      },
+
+      optional: []
+    }
+  }
+  ```
 
   ## Reference
 
@@ -146,6 +174,19 @@ CaptureConfig.prototype.camera = function(index) {
 **/
 CaptureConfig.prototype.microphone = function(index) {
   this.cfg.microphone = trueOrValue(index);
+};
+
+/**
+  #### screen(target)
+
+  Specify that we would like to capture the screen
+**/
+CaptureConfig.prototype.screen = function() {
+  // unset the microphone config
+  delete this.cfg.microphone;
+
+  // set the screen configuration
+  this.cfg.screen = true;
 };
 
 /**
@@ -238,7 +279,7 @@ CaptureConfig.prototype.toConstraints = function(opts) {
     audio: cfg.microphone === true ||
       (typeof cfg.microphone == 'number' && cfg.microphone >= 0),
 
-    video: cfg.camera === true ||
+    video: cfg.camera === true || cfg.screen ||
       (typeof cfg.camera == 'number' && cfg.camera >= 0)
   };
 
@@ -311,7 +352,13 @@ CaptureConfig.prototype.toConstraints = function(opts) {
       complexConstraints('audio');
       o.audio.push({ sourceId: selectedSource.id });
     }
-  };
+  }
+
+  // if we have screen constraints, make magic happen
+  if (typeof cfg.screen != 'undefined') {
+    complexConstraints('video');
+    m.video.chromeMediaSource = 'screen';
+  }
 
   return constraints;
 };

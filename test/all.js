@@ -14,3 +14,7 @@ require('./camera-targets-constraints');
 
 // constraints with source information tests
 require('./camera-targets-constraints-sourced');
+
+// screen tests
+require('./screen');
+require('./screen-constraints');
