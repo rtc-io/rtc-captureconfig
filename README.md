@@ -6,8 +6,8 @@ that means in the context of WebRTC.
 
 [![NPM](https://nodei.co/npm/rtc-captureconfig.png)](https://nodei.co/npm/rtc-captureconfig/)
 
-[![Build Status](https://travis-ci.org/rtc-io/rtc-captureconfig.png?branch=master)](https://travis-ci.org/rtc-io/rtc-captureconfig)
-[![unstable](http://hughsk.github.io/stability-badges/dist/unstable.svg)](http://github.com/hughsk/stability-badges)
+[![Build Status](https://img.shields.io/travis/rtc-io/rtc-captureconfig.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-captureconfig)
+![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)
 
 ## Why?
 
@@ -226,7 +226,7 @@ Parse a resolution specifier (e.g. 1280x720) into a simple JS object
 
 ### Apache 2.0
 
-Copyright 2013 National ICT Australia Limited (NICTA)
+Copyright 2014 National ICT Australia Limited (NICTA)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
