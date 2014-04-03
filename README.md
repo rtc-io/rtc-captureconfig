@@ -9,6 +9,9 @@ that means in the context of WebRTC.
 [![Build Status](https://img.shields.io/travis/rtc-io/rtc-captureconfig.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-captureconfig)
 ![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)
 
+[![Gitter chat](https://badges.gitter.im/rtc-io/discuss.png)](https://gitter.im/rtc-io/discuss)
+
+
 ## Why?
 
 It provides a simple, textual way of describing your requirements for
