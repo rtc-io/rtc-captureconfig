@@ -158,12 +158,14 @@ function CaptureConfig() {
   };
 }
 
+var prot = CaptureConfig.prototype;
+
 /**
   #### camera(index)
 
   Update the camera configuration to the specified index
 **/
-CaptureConfig.prototype.camera = function(index) {
+prot.camera = function(index) {
   this.cfg.camera = trueOrValue(index);
 };
 
@@ -172,7 +174,7 @@ CaptureConfig.prototype.camera = function(index) {
 
   Update the microphone configuration to the specified index
 **/
-CaptureConfig.prototype.microphone = function(index) {
+prot.microphone = function(index) {
   this.cfg.microphone = trueOrValue(index);
 };
 
@@ -181,7 +183,7 @@ CaptureConfig.prototype.microphone = function(index) {
 
   Specify that we would like to capture the screen
 **/
-CaptureConfig.prototype.screen = function() {
+prot.screen = function() {
   // unset the microphone config
   delete this.cfg.microphone;
 
@@ -196,7 +198,7 @@ CaptureConfig.prototype.screen = function() {
   to the `maxfps` modifier.
 
 **/
-CaptureConfig.prototype.max = function(data) {
+prot.max = function(data) {
   var res;
 
   // if this is an fps specification parse
@@ -217,7 +219,7 @@ CaptureConfig.prototype.max = function(data) {
 
   Update the maximum fps
 **/
-CaptureConfig.prototype.maxfps = function(data) {
+prot.maxfps = function(data) {
   // ensure we have an fps component
   this.cfg.fps = this.cfg.fps || {};
 
@@ -231,7 +233,7 @@ CaptureConfig.prototype.maxfps = function(data) {
   Update a minimum constraint.  This can be either related to resolution
   or FPS.
 **/
-CaptureConfig.prototype.min = function(data) {
+prot.min = function(data) {
   var res;
 
   // if this is an fps specification parse
@@ -254,12 +256,22 @@ CaptureConfig.prototype.min = function(data) {
 
   Update the minimum fps
 **/
-CaptureConfig.prototype.minfps = function(data) {
+prot.minfps = function(data) {
   // ensure we have an fps component
   this.cfg.fps = this.cfg.fps || {};
 
   // set the max fps
   this.cfg.fps.min = parseFloat(data.slice(0, -3));
+};
+
+prot.hd = prot['720p'] = function() {
+  this.cfg.camera = true;
+  this.min('1280x720');
+};
+
+prot.fullhd = prot['1080p'] = function() {
+  this.cfg.camera = true;
+  this.min('1920x1080');
 };
 
 /**
@@ -273,7 +285,7 @@ CaptureConfig.prototype.minfps = function(data) {
   <<< examples/capture-targets.js
 
 **/
-CaptureConfig.prototype.toConstraints = function(opts) {
+prot.toConstraints = function(opts) {
   var cfg = this.cfg;
   var constraints = {
     audio: cfg.microphone === true ||
@@ -373,7 +385,7 @@ CaptureConfig.prototype.toConstraints = function(opts) {
   Parse a resolution specifier (e.g. 1280x720) into a simple JS object
   (e.g. { w: 1280, h: 720 })
 **/
-CaptureConfig.prototype._parseRes = function(data) {
+prot._parseRes = function(data) {
   // split the data on the 'x' character
   var parts = data.split('x');
 
