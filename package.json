@@ -7,6 +7,7 @@
     "test": "node test/all.js",
     "gendocs": "gendocs > README.md"
   },
+  "stability": "unstable",
   "repository": {
     "type": "git",
     "url": "https://github.com/rtc-io/rtc-captureconfig.git"
