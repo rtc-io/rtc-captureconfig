@@ -18,3 +18,6 @@ require('./camera-targets-constraints-sourced');
 // screen tests
 require('./screen');
 require('./screen-constraints');
+
+// hd, full-hd tests
+require('./hd');
