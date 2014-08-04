@@ -3,6 +3,8 @@
 
 var reSeparator = /[\,\s]\s*/;
 var offFlags = ['false', 'none', 'off'];
+var reFPS = /(\d+)fps/i;
+var buildConstraints = require('./buildConstraints');
 
 
 /**
@@ -55,17 +57,20 @@ var offFlags = ['false', 'none', 'off'];
   {
     audio: true,
     video: {
-      mandatory: {
-        minFrameRate: 15,
-        maxFrameRate: 25,
+      mandatory: {},
+      optional: [
+        { minFrameRate: 15 },
+        { maxFrameRate: 25 },
+        { frameRate: { min: 15, max: 25 } },
 
-        minWidth: 1280,
-        minHeight: 720,
-        maxWidth: 1280,
-        maxHeight: 720
-      },
+        { minWidth: 1280 },
+        { maxWidth: 1280 },
+        { width: 1280 },
 
-      optional: []
+        { minHeight: 720 },
+        { maxHeight: 720 },
+        { height: 720 }
+      ]
     }
   }
   ```
@@ -129,6 +134,13 @@ module.exports = function(input) {
     // now further split the directive on the : character
     var parts = directive.split(':');
     var method = config[(parts[0] || '').toLowerCase()];
+    var fpsMatch = (! method) && reFPS.exec(parts[0]);
+
+    // if we have an 'fps' directive then process
+    if (fpsMatch) {
+      method = config.fps;
+      parts = [ 'fps', 15 ];
+    }
 
     // if we have the method apply
     if (typeof method == 'function') {
@@ -274,6 +286,10 @@ prot.fullhd = prot['1080p'] = function() {
   this.min('1920x1080');
 };
 
+prot.fps = function(fps) {
+  this.cfg.fps = { min: fps, max: fps };
+};
+
 /**
   #### toConstraints(opts?)
 
@@ -328,8 +344,7 @@ prot.toConstraints = function(opts) {
   // fps
   if (cfg.fps) {
     complexConstraints('video');
-    cfg.fps.min && (m.video.minFrameRate = cfg.fps.min);
-    cfg.fps.max && (m.video.maxFrameRate = cfg.fps.max);
+    o.video = o.video.concat(buildConstraints('frameRate', cfg.fps));
   }
 
   // min res specified
@@ -371,6 +386,12 @@ prot.toConstraints = function(opts) {
     complexConstraints('video');
     m.video.chromeMediaSource = 'screen';
   }
+
+  ['video', 'audio'].forEach(function(target) {
+    if (constraints[target] && constraints[target].optional) {
+      constraints[target].optional = o[target];
+    }
+  });
 
   return constraints;
 };
