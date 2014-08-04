@@ -22,8 +22,13 @@
     "url": "https://github.com/rtc-io/rtc-captureconfig/issues"
   },
   "devDependencies": {
-    "tape": "^2.10.2",
+    "async": "^0.9.0",
+    "crel": "^1.1.2",
+    "getusermedia": "~0.2.1",
     "rtc-media": "^1.5.5",
-    "getusermedia": "~0.2.1"
+    "tape": "^2.10.2"
+  },
+  "dependencies": {
+    "cog": "^1.0.0"
   }
 }
