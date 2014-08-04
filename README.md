@@ -6,10 +6,9 @@ that means in the context of WebRTC.
 
 [![NPM](https://nodei.co/npm/rtc-captureconfig.png)](https://nodei.co/npm/rtc-captureconfig/)
 
-[![Build Status](https://img.shields.io/travis/rtc-io/rtc-captureconfig.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-captureconfig)
-![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)
-
+[![Build Status](https://img.shields.io/travis/rtc-io/rtc-captureconfig.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-captureconfig) [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/dominictarr/stability#unstable) 
 [![Gitter chat](https://badges.gitter.im/rtc-io/discuss.png)](https://gitter.im/rtc-io/discuss)
+
 
 
 ## Why?
@@ -56,17 +55,20 @@ a getUserMedia call:
 {
   audio: true,
   video: {
-    mandatory: {
-      minFrameRate: 15,
-      maxFrameRate: 25,
+    mandatory: {},
+    optional: [
+      { minFrameRate: 15 },
+      { maxFrameRate: 25 },
+      { frameRate: { min: 15, max: 25 } },
 
-      minWidth: 1280,
-      minHeight: 720,
-      maxWidth: 1280,
-      maxHeight: 720
-    },
+      { minWidth: 1280 },
+      { maxWidth: 1280 },
+      { width: 1280 },
 
-    optional: []
+      { minHeight: 720 },
+      { maxHeight: 720 },
+      { height: 720 }
+    ]
   }
 }
 ```
