@@ -348,17 +348,18 @@ prot.toConstraints = function(opts) {
   }
 
   // min res specified
-  if (cfg.res && cfg.res.min) {
+  if (cfg.res) {
     complexConstraints('video');
-    m.video.minWidth = cfg.res.min.w;
-    m.video.minHeight = cfg.res.min.h;
-  }
 
-  // max res specified
-  if (cfg.res && cfg.res.max) {
-    complexConstraints('video');
-    m.video.maxWidth = cfg.res.max.w;
-    m.video.maxHeight = cfg.res.max.h;
+    o.video = o.video.concat(buildConstraints('width', {
+      min: cfg.res.min && cfg.res.min.w,
+      max: cfg.res.max && cfg.res.max.w
+    }));
+
+    o.video = o.video.concat(buildConstraints('height', {
+      min: cfg.res.min && cfg.res.min.h,
+      max: cfg.res.max && cfg.res.max.h
+    }));
   }
 
   // input camera selection
