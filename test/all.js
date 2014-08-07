@@ -21,3 +21,7 @@ require('./screen-constraints');
 
 // hd, full-hd tests
 require('./hd');
+
+// screenshare tests
+require('./share');
+require('./share-constraints');
