@@ -291,6 +291,31 @@ prot.fps = function(fps) {
 };
 
 /**
+  #### share(target)
+
+  Whether we want to capture a window rather than webcam source.
+
+  ```
+  share:window
+  ```
+
+  __NOTE:__ This feature must be supported by your browser (and you
+  may need to have a suitable extension installed).
+**/
+prot.share = function(target) {
+  this.cfg.share = target || 'window';
+  this.cfg.microphone = false;
+
+  // initialise a default max resolution
+  this.max('1920x1080');
+
+  // set a default min aspect ratio
+  this.cfg.aspectRatio = {
+    min: 1.77
+  };
+};
+
+/**
   #### toConstraints(opts?)
 
   Convert the internal configuration object to a valid media constraints
