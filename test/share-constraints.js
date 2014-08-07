@@ -14,7 +14,7 @@ test('share', expect({
   audio: false,
   video: extend(detect.moz ? mozMediaSource('window') : {}, {
     mandatory: detect.moz ? {} : {
-      chromeMediaSource: 'window'
+      chromeMediaSource: 'screen'
     },
     optional: [
       { maxWidth: 1920 },
@@ -25,11 +25,11 @@ test('share', expect({
   })
 }));
 
-test('share:winwod', expect({
+test('share:window', expect({
   audio: false,
   video: extend(detect.moz ? mozMediaSource('window') : {}, {
     mandatory: detect.moz ? {} : {
-      chromeMediaSource: 'window'
+      chromeMediaSource: 'screen'
     },
     optional: [
       { maxWidth: 1920 },
