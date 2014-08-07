@@ -4,7 +4,7 @@
   "description": "Simple string definition -> WebRTC constraints",
   "main": "index.js",
   "scripts": {
-    "test": "node test/all.js",
+    "test": "node test/all.js && zuul -- test/all.js",
     "gendocs": "gendocs > README.md"
   },
   "stability": "unstable",
@@ -26,7 +26,8 @@
     "crel": "^1.1.2",
     "getusermedia": "~0.2.1",
     "rtc-media": "^1.5.5",
-    "tape": "^2.10.2"
+    "tape": "^2.10.2",
+    "zuul": "^1.10.0"
   },
   "dependencies": {
     "cog": "^1.0.0",

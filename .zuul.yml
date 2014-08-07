@@ -1,0 +1,7 @@
+ui: tape
+browsers:
+  - name: chrome
+    version: [35,36,beta]
+
+  - name: firefox
+    version: 30..latest
