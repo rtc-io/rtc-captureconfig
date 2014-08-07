@@ -1,6 +1,7 @@
 /* jshint node: true */
 'use strict';
 
+var detect = require('rtc-core/detect');
 var reSeparator = /[\,\s]\s*/;
 var offFlags = ['false', 'none', 'off'];
 var reFPS = /(\d+)fps/i;
@@ -332,7 +333,7 @@ prot.toConstraints = function(opts) {
     audio: cfg.microphone === true ||
       (typeof cfg.microphone == 'number' && cfg.microphone >= 0),
 
-    video: cfg.camera === true || cfg.screen ||
+    video: cfg.camera === true || cfg.share ||
       (typeof cfg.camera == 'number' && cfg.camera >= 0)
   };
 
@@ -363,6 +364,17 @@ prot.toConstraints = function(opts) {
         mandatory: m[target],
         optional: o[target]
       };
+    }
+  }
+
+  // if we have screen constraints, make magic happen
+  if (typeof cfg.share != 'undefined') {
+    complexConstraints('video');
+    if (detect.moz) {
+      constraints.video.mozMediaSource = constraints.video.mediaSource = 'window';
+    }
+    else {
+      m.video.chromeMediaSource = 'screen';
     }
   }
 
@@ -405,12 +417,6 @@ prot.toConstraints = function(opts) {
       complexConstraints('audio');
       o.audio.push({ sourceId: selectedSource.id });
     }
-  }
-
-  // if we have screen constraints, make magic happen
-  if (typeof cfg.screen != 'undefined') {
-    complexConstraints('video');
-    m.video.chromeMediaSource = 'screen';
   }
 
   ['video', 'audio'].forEach(function(target) {
