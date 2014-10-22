@@ -23,10 +23,10 @@
   },
   "devDependencies": {
     "async": "^0.9.0",
-    "crel": "^1.1.2",
-    "getusermedia": "~0.2.1",
+    "crel": "^2.1.5",
+    "getusermedia": "^1.1.0",
     "rtc-media": "^1.5.5",
-    "tape": "^2.10.2",
+    "tape": "^3.0.1",
     "zuul": "^1.10.0"
   },
   "dependencies": {
