@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "cog": "^1.0.0",
-    "rtc-core": "^3.0.0"
+    "rtc-core": "^4.0.0"
   }
 }
