@@ -2,6 +2,7 @@
 'use strict';
 
 var detect = require('rtc-core/detect');
+var extend = require('cog/extend');
 var reSeparator = /[\,\s]\s*/;
 var offFlags = ['false', 'none', 'off'];
 var reFPS = /(\d+)fps/i;
@@ -357,6 +358,15 @@ prot.toConstraints = function(opts) {
     return info && info.kind === 'audio';
   });
   var selectedSource;
+  var useMandatory = !!(opts || {}).useMandatory;
+
+  function addConstraints(section, constraints) {
+    if (useMandatory) {
+      return extend.apply(null, [m[section]].concat(constraints));
+    }
+
+    o[section] = o[section].concat(constraints);
+  }
 
   function complexConstraints(target) {
     if (constraints[target] && typeof constraints[target] != 'object') {
@@ -381,19 +391,19 @@ prot.toConstraints = function(opts) {
   // fps
   if (cfg.fps) {
     complexConstraints('video');
-    o.video = o.video.concat(buildConstraints('frameRate', cfg.fps));
+    addConstraints('video', buildConstraints('frameRate', cfg.fps));
   }
 
   // min res specified
   if (cfg.res) {
     complexConstraints('video');
 
-    o.video = o.video.concat(buildConstraints('width', {
+    addConstraints('video', buildConstraints('width', {
       min: cfg.res.min && cfg.res.min.w,
       max: cfg.res.max && cfg.res.max.w
     }));
 
-    o.video = o.video.concat(buildConstraints('height', {
+    addConstraints('video', buildConstraints('height', {
       min: cfg.res.min && cfg.res.min.h,
       max: cfg.res.max && cfg.res.max.h
     }));
@@ -405,7 +415,7 @@ prot.toConstraints = function(opts) {
 
     if (selectedSource) {
       complexConstraints('video');
-      o.video.push({ sourceId: selectedSource.id });
+      addConstraints('video', { sourceId: selectedSource.id });
     }
   }
 
@@ -415,7 +425,7 @@ prot.toConstraints = function(opts) {
 
     if (selectedSource) {
       complexConstraints('audio');
-      o.audio.push({ sourceId: selectedSource.id });
+      addConstraints('audio', { sourceId: selectedSource.id });
     }
   }
 
