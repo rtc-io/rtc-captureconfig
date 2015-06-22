@@ -9,6 +9,7 @@ require('./camera-targets');
 require('./camera-resolution-constraints');
 require('./camera-fps-constraints');
 require('./camera-combo-constraints');
+require('./camera-combo-constraints-mandatory');
 require('./camera-noaudio-constraints');
 require('./camera-targets-constraints');
 
