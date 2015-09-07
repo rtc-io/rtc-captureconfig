@@ -6,7 +6,7 @@ that means in the context of WebRTC.
 
 [![NPM](https://nodei.co/npm/rtc-captureconfig.png)](https://nodei.co/npm/rtc-captureconfig/)
 
-[![Build Status](https://img.shields.io/travis/rtc-io/rtc-captureconfig.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-captureconfig) [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/dominictarr/stability#unstable) 
+[![Build Status](https://img.shields.io/travis/rtc-io/rtc-captureconfig.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-captureconfig) [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/dominictarr/stability#unstable)
 [![Gitter chat](https://badges.gitter.im/rtc-io/discuss.png)](https://gitter.im/rtc-io/discuss)
 
 
@@ -48,8 +48,10 @@ utility class) that looks like the following:
 }
 ```
 
-Which in turn is converted into the following media constraints for
-a getUserMedia call:
+Which in turn is able to be converted into the appropriate browser media constraints
+for a `getUserMedia` call.
+
+For Chrome/Firefox 37 and below
 
 ```js
 {
@@ -58,8 +60,7 @@ a getUserMedia call:
     mandatory: {},
     optional: [
       { minFrameRate: 15 },
-      { maxFrameRate: 25 },
-      { frameRate: { min: 15, max: 25 } },
+      { maxFrameRate: 25 }
 
       { minWidth: 1280 },
       { maxWidth: 1280 },
@@ -72,6 +73,23 @@ a getUserMedia call:
   }
 }
 ```
+
+For Firefox 38+
+
+```js
+{
+  audio: true,
+  video: {
+    mandatory: {},
+    optional: [
+      { frameRate: { min: 15, max: 25 },
+      { width: 1280 },
+      { height: 720 }
+    ]
+  }
+}
+```
+
 
 ### Experimental: Targeted Device Capture
 
@@ -196,6 +214,10 @@ Convert the internal configuration object to a valid media constraints
 representation.  In compatible browsers a list of media sources can
 be passed through in the `opts.sources` to create contraints that will
 target a specific device when captured.
+
+It is also possible to override the autodetected constraint output type by
+passing in the desired output type in `opts.constraintType`. (`legacy` for
+Chrome style constraints, `standard` for Firefox 38+ constraints)
 
 ```js
 var media = require('rtc-media');

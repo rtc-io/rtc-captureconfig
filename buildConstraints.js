@@ -1,38 +1,23 @@
-var extend = require('cog/extend');
+'use strict';
+// Detect the capabilities
+var capabilities = require('./capabilities');
 
-function createAttr(prefix, attrName, value) {
-  var attr = {};
-  var key = prefix && (prefix + attrName.slice(0, 1).toUpperCase() + attrName.slice(1));
+// This is the extensible list of constraint builders
+var builders = {
+  // This is the current (August 25, 2015) specification for MediaTrackConstraints
+  standard: require('./constraints/standard'),
+  // This is the legacy specification that is still used by Chrome
+  legacy: require('./constraints/legacy')
+};
 
-  attr[key || attrName] = value;
-  return attr;
-}
-
-module.exports = function(attrName, data) {
-  var output = [];
-  var combined;
-
-  if (data.min) {
-    combined = {
-      min: data.min
-    };
-
-    output.push(createAttr('min', attrName, data.min));
-  }
-
-  if (data.max) {
-    combined = extend(combined || {}, {
-      max: data.max
-    });
-
-    output.push(createAttr('max', attrName, data.max));
-  }
-
-  if (data.min && data.max && data.min === data.max) {
-    combined = data.min;
-  }
-
-  output.push(createAttr(null, attrName, combined));
-
-  return output;
+/**
+  Constructs the appropriate constraints object, depending on the type of required
+  constraints (ie. whether it adheres to the new constraints spec (Firefox 38+), the legacy
+  constraints (Chrome, Firefox 37 and lower), or something else (ie. Opera, IE, iOS)
+ **/
+module.exports = function(attrName, data, opts) {
+  var constraintsType = (opts || {}).constraintsType || capabilities.constraintsType || 'legacy';
+  var builder = builders[constraintsType];
+  if (!builder) throw new Error('Unsupported constraints builder');
+  return builder(attrName, data);
 };

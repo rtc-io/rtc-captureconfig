@@ -4,7 +4,7 @@
   "description": "Simple string definition -> WebRTC constraints",
   "main": "index.js",
   "scripts": {
-    "test": "node test/all.js && zuul -- test/all.js",
+    "test": "browserify test/all.js | broth start | tap-spec",
     "gendocs": "gendocs > README.md"
   },
   "stability": "unstable",
@@ -22,15 +22,21 @@
     "url": "https://github.com/rtc-io/rtc-captureconfig/issues"
   },
   "devDependencies": {
-    "async": "^1.0.0",
+    "async": "^1.4.2",
+    "broth": "^2.1.1",
+    "browserify": "^11.0.1",
     "crel": "^2.1.5",
     "getusermedia": "^1.1.0",
     "rtc-media": "^1.5.5",
+    "tap-spec": "^4.1.0",
     "tape": "^4.0.0",
+    "travis-multirunner": "^2.7.2",
     "zuul": "^3.0.0"
   },
   "dependencies": {
     "cog": "^1.1.0",
+    "compare-versions": "^1.1.2",
+    "detect-browser": "^1.1.1",
     "rtc-core": "^4.0.0"
   }
 }
