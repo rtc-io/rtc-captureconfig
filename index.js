@@ -391,7 +391,7 @@ prot.toConstraints = function(opts) {
   // fps
   if (cfg.fps) {
     complexConstraints('video');
-    addConstraints('video', buildConstraints('frameRate', cfg.fps));
+    addConstraints('video', buildConstraints('frameRate', cfg.fps, opts));
   }
 
   // min res specified
@@ -401,12 +401,12 @@ prot.toConstraints = function(opts) {
     addConstraints('video', buildConstraints('width', {
       min: cfg.res.min && cfg.res.min.w,
       max: cfg.res.max && cfg.res.max.w
-    }));
+    }, opts));
 
     addConstraints('video', buildConstraints('height', {
       min: cfg.res.min && cfg.res.min.h,
       max: cfg.res.max && cfg.res.max.h
-    }));
+    }, opts));
   }
 
   // input camera selection

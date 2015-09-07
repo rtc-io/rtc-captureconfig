@@ -1,3 +1,4 @@
+var extend = require('cog/extend');
 var captureconfig = require('../../');
 var sources = [
   { kind: 'audio', id: 80, label: '' },
@@ -9,11 +10,11 @@ var sources = [
   { kind: 'audio', id: 83, label: '' }
 ];
 
-module.exports = function(expected) {
+module.exports = function(expected, opts) {
   return function(t) {
     t.plan(1);
     t.deepEqual(
-      captureconfig(t.name).toConstraints({ sources: sources }),
+      captureconfig(t.name).toConstraints(extend({ sources: sources }, opts || {})),
       expected,
       JSON.stringify(expected)
     );
