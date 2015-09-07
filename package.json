@@ -24,6 +24,7 @@
   "devDependencies": {
     "async": "^1.4.2",
     "broth": "^2.1.1",
+    "browserify": "^11.0.1",
     "crel": "^2.1.5",
     "getusermedia": "^1.1.0",
     "rtc-media": "^1.5.5",
