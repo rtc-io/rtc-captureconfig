@@ -18,11 +18,7 @@ test('camera 15fps', expect({
 test('camera 15fps', expect({
   audio: true,
   video: {
-    mandatory: {},
-
-    optional: [
-      { frameRate: 15 }
-    ]
+    frameRate: 15
   }
 }, format.STANDARD));
 
@@ -39,10 +35,7 @@ test('camera max:15fps', expect({
 test('camera max:15fps', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { frameRate: { max: 15 } }
-    ]
+    frameRate: { max: 15 }
   }
 }, format.STANDARD));
 
@@ -59,10 +52,7 @@ test('camera min:25fps', expect({
 test('camera min:25fps', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { frameRate: { min: 25 } }
-    ]
+    frameRate: { min: 25 }
   }
 }, format.STANDARD));
 
@@ -80,9 +70,6 @@ test('camera min:15fps max:25fps', expect({
 test('camera min:15fps max:25fps', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { frameRate: { min: 15, max: 25 } }
-    ]
+    frameRate: { min: 15, max: 25 }
   }
 }, format.STANDARD));

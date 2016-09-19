@@ -13,8 +13,7 @@ test('camera:1', expect({
 }, format.LEGACY));
 test('camera:1', expect({
   video: {
-    mandatory: {},
-    optional: [{ sourceId: 91 }]
+    deviceId: { exact: 91 }
   },
   audio: true
 }, format.STANDARD));
@@ -32,8 +31,7 @@ test('microphone:1', expect({
 test('microphone:1', expect({
   video: false,
   audio: {
-    mandatory: {},
-    optional: [{ sourceId: 81 }]
+    deviceId: { exact: 81 }
   }
 }, format.STANDARD));
 
@@ -48,8 +46,7 @@ test('camera microphone:1', expect({
 test('camera microphone:1', expect({
   video:true,
   audio: {
-    mandatory: {},
-    optional: [{ sourceId: 81 }]
+    deviceId: { exact: 81 }
   }
 }, format.STANDARD));
 
@@ -66,11 +63,9 @@ test('camera:1 microphone:2', expect({
 
 test('camera:1 microphone:2', expect({
   video: {
-    mandatory: {},
-    optional: [{ sourceId: 91 }]
+    deviceId: { exact: 91 }
   },
   audio: {
-    mandatory: {},
-    optional: [{ sourceId: 82 }]
+    deviceId: { exact: 82 }
   }
 }, format.STANDARD));

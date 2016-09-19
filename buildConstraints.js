@@ -11,13 +11,12 @@ var builders = {
 };
 
 /**
-  Constructs the appropriate constraints object, depending on the type of required
-  constraints (ie. whether it adheres to the new constraints spec (Firefox 38+), the legacy
-  constraints (Chrome, Firefox 37 and lower), or something else (ie. Opera, IE, iOS)
+  Returns a constraints builder for the appropriate version of the getUserMedia constraints
+  that are required
  **/
-module.exports = function(attrName, data, opts) {
+module.exports = function(cfg, opts) {
   var constraintsType = (opts || {}).constraintsType || capabilities.constraintsType || 'legacy';
   var builder = builders[constraintsType];
   if (!builder) throw new Error('Unsupported constraints builder');
-  return builder(attrName, data);
+  return builder(cfg, opts);
 };
