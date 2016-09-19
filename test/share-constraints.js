@@ -26,15 +26,16 @@ test('share', expect({
 
 test('share', expect({
   audio: false,
-  video: extend(detect.moz ? mozMediaSource('window') : {}, {
-    mandatory: detect.moz ? {} : {
-      chromeMediaSource: 'screen'
-    },
-    optional: [
-      { width: { max: 1920 } },
-      { height: { max: 1080 } }
-    ]
-  })
+  video: extend(detect.moz ? mozMediaSource('window') : {},
+    detect.moz ? {
+      width: { max: 1920 },
+      height: { max: 1080 }
+    } : {
+      chromeMediaSource: 'screen',
+      width: { max: 1920 },
+      height: { max: 1080 }
+    }
+  )
 }, format.STANDARD));
 
 test('share:window', expect({
@@ -52,13 +53,14 @@ test('share:window', expect({
 
 test('share:window', expect({
   audio: false,
-  video: extend(detect.moz ? mozMediaSource('window') : {}, {
-    mandatory: detect.moz ? {} : {
-      chromeMediaSource: 'screen'
-    },
-    optional: [
-      { width: { max: 1920 } },
-      { height: { max: 1080 } }
-    ]
-  })
+  video: extend(detect.moz ? mozMediaSource('window') : {},
+    detect.moz ? {
+      width: { max: 1920 },
+      height: { max: 1080 }
+    } : {
+      chromeMediaSource: 'screen',
+      width: { max: 1920 },
+      height: { max: 1080 }
+    }
+  )
 }, format.STANDARD));

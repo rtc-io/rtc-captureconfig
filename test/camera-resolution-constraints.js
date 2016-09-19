@@ -16,11 +16,8 @@ test('camera min:1280x720', expect({
 test('camera min:1280x720', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { width: { min: 1280 } },
-      { height: { min: 720 } }
-    ]
+    width: { min: 1280 },
+    height: { min: 720 }
   }
 }, format.STANDARD));
 
@@ -38,11 +35,8 @@ test('camera max:1280x720', expect({
 test('camera max:1280x720', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { width: { max: 1280 } },
-      { height: { max: 720 } }
-    ]
+    width: { max: 1280 },
+    height: { max: 720 }
   }
 }, format.STANDARD));
 
@@ -63,10 +57,7 @@ test('camera min:640x480 max:1280x720', expect({
 test('camera min:640x480 max:1280x720', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { width: { min: 640, max: 1280 } },
-      { height: { min: 480, max: 720 } }
-    ]
+    width: { min: 640, max: 1280 },
+    height: { min: 480, max: 720 }
   }
 }, format.STANDARD));

@@ -16,11 +16,8 @@ test('hd', expect({
 test('hd', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { width: { min: 1280 } },
-      { height: { min: 720 } }
-    ]
+    width: { min: 1280 },
+    height: { min: 720 }
   }
 }, format.STANDARD));
 
@@ -38,11 +35,8 @@ test('720p', expect({
 test('720p', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { width: { min: 1280 } },
-      { height: { min: 720 } }
-    ]
+    width: { min: 1280 },
+    height: { min: 720 }
   }
 }, format.STANDARD));
 
@@ -60,11 +54,8 @@ test('fullhd', expect({
 test('fullhd', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { width: { min: 1920 } },
-      { height: { min: 1080 } }
-    ]
+    width: { min: 1920 },
+    height: { min: 1080 }
   }
 }, format.STANDARD));
 
@@ -82,10 +73,7 @@ test('1080p', expect({
 test('1080p', expect({
   audio: true,
   video: {
-    mandatory: {},
-    optional: [
-      { width: { min: 1920 } },
-      { height: { min: 1080 } }
-    ]
+    width: { min: 1920 },
+    height: { min: 1080 }
   }
 }, format.STANDARD));

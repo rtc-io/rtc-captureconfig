@@ -9,4 +9,15 @@ var capabilities = module.exports = {
 	browserVersion: browser.version
 };
 
-capabilities.constraintsType = (capabilities.moz && compareVersions(browser.version, '38.0.0') >= 0 ? 'standard' : 'legacy');
+// Mozilla constraings handling
+if (capabilities.moz) {
+	capabilities.constraintsType = (compareVersions(browser.version, '38.0.0') >= 0 ? 'standard' : 'legacy');
+}
+// Chrome constraints handling
+else if (browser.name === 'chrome') {
+	capabilities.constraintsType = (compareVersions(browser.version, '53.0.0') >= 0 ? 'standard' : 'legacy');
+}
+// Default constraints handling
+else {
+	capabilities.constraintsType = 'legacy';
+}

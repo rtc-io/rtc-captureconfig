@@ -20,12 +20,9 @@ test('camera min:1280x720 15fps', expect({
 test('camera min:1280x720 15fps', expect({
   audio: true,
   video: {
-    mandatory: {
-      frameRate: 15,
-      width: { min: 1280 },
-      height: { min: 720 }
-    },
-    optional: []
+    frameRate: 15,
+    width: { min: 1280 },
+    height: { min: 720 }
   }
 }, format.STANDARD));
 
@@ -49,11 +46,8 @@ test('camera min:1280x720 max:1280x720 min:15fps max:25fps', expect({
 test('camera min:1280x720 max:1280x720 min:15fps max:25fps', expect({
   audio: true,
   video: {
-    mandatory: {
-      frameRate: { min: 15, max: 25 },
-      width: 1280,
-      height: 720
-    },
-    optional: []
+    frameRate: { min: 15, max: 25 },
+    width: 1280,
+    height: 720
   }
 }, format.STANDARD));
