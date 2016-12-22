@@ -90,12 +90,16 @@ module.exports = function(cfg, opts) {
   if (cfg.res) {
     addConstraints('video', buildConstraints('width', {
       min: cfg.res.min && cfg.res.min.w,
-      max: cfg.res.max && cfg.res.max.w
+      max: cfg.res.max && cfg.res.max.w,
+      ideal: cfg.res.ideal && cfg.res.ideal.w,
+      exact: cfg.res.exact && cfg.res.exact.w,
     }, opts));
 
     addConstraints('video', buildConstraints('height', {
       min: cfg.res.min && cfg.res.min.h,
-      max: cfg.res.max && cfg.res.max.h
+      max: cfg.res.max && cfg.res.max.h,
+      ideal: cfg.res.ideal && cfg.res.ideal.h,
+      exact: cfg.res.exact && cfg.res.exact.h,
     }, opts));
   }
 

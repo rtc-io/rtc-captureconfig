@@ -73,3 +73,21 @@ test('camera min:15fps max:25fps', expect({
     frameRate: { min: 15, max: 25 }
   }
 }, format.STANDARD));
+
+test('camera min:15fps ideal:25fps', expect({
+  audio: true,
+  video: {
+    mandatory: {},
+    optional: [
+      { minFrameRate: 15 },
+      { maxFrameRate: 25 }
+    ]
+  }
+}, format.LEGACY));
+
+test('camera min:15fps ideal:25fps', expect({
+  audio: true,
+  video: {
+    frameRate: { min: 15, ideal: 25 }
+  }
+}, format.STANDARD));
