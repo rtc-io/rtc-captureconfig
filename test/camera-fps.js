@@ -25,3 +25,12 @@ test('camera min:15fps max:25fps', expect({
     max: 25
   }
 }));
+
+test('camera min:10fps ideal:15fps', expect({
+  camera: true,
+  microphone: true,
+  fps: {
+    min: 10,
+    ideal: 15
+  }
+}));

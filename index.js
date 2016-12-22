@@ -204,18 +204,16 @@ prot.screen = function() {
 };
 
 /**
-  #### max(data)
+ #### _apply(prop, data)
 
-  Update a maximum constraint.  If an fps constraint this will be directed
-  to the `maxfps` modifier.
-
+ Parses and applies the resolution or fps from data to prop
 **/
-prot.max = function(data) {
+prot._apply = function(prop, data) {
   var res;
 
   // if this is an fps specification parse
   if (data.slice(-3).toLowerCase() == 'fps') {
-    return this.maxfps(data);
+    return this[prop + 'fps'](data);
   }
 
   // parse the resolution
@@ -223,7 +221,18 @@ prot.max = function(data) {
 
   // initialise the fps config stuff
   this.cfg.res = this.cfg.res || {};
-  this.cfg.res.max = res;
+  this.cfg.res[prop] = res;
+}
+
+/**
+  #### max(data)
+
+  Update a maximum constraint.  If an fps constraint this will be directed
+  to the `maxfps` modifier.
+
+**/
+prot.max = function(data) {
+  this._apply('max', data);
 };
 
 /**
@@ -246,21 +255,7 @@ prot.maxfps = function(data) {
   or FPS.
 **/
 prot.min = function(data) {
-  var res;
-
-  // if this is an fps specification parse
-  if (data.slice(-3).toLowerCase() == 'fps') {
-    return this.minfps(data);
-  }
-
-  // parse the resolution
-  res = this._parseRes(data);
-
-  // initialise the fps config stuff
-  this.cfg.res = this.cfg.res || {};
-
-  // add the min
-  this.cfg.res.min = res;
+  this._apply('min', data);
 };
 
 /**
@@ -274,6 +269,66 @@ prot.minfps = function(data) {
 
   // set the max fps
   this.cfg.fps.min = parseFloat(data.slice(0, -3));
+};
+
+/**
+  #### ideal(data)
+
+  Updates an ideal constraint.  This can be either related to resolution
+  or FPS.
+**/
+prot.ideal = function(data) {
+  this._apply('ideal', data);
+};
+
+/**
+  #### idealfps(data)
+
+  Sets the ideal fps
+**/
+prot.idealfps = function(data) {
+  // ensure we have an fps component
+  this.cfg.fps = this.cfg.fps || {};
+
+  // set the max fps
+  this.cfg.fps.ideal = parseFloat(data.slice(0, -3));
+};
+
+/**
+  #### exact(data)
+
+  Updates an exact constraint.  This can be either related to resolution
+  or FPS.
+**/
+prot.exact = function(data) {
+  this._apply('exact', data);
+};
+
+/**
+  #### exactfps(data)
+
+  Sets the exact fps
+**/
+prot.exactfps = function(data) {
+  // ensure we have an fps component
+  this.cfg.fps = this.cfg.fps || {};
+
+  // set the max fps
+  this.cfg.fps.exact = parseFloat(data.slice(0, -3));
+};
+
+prot.hd = prot['720p'] = function() {
+  this.cfg.camera = true;
+  this.min('1280x720');
+};
+
+prot.fullhd = prot['1080p'] = function() {
+  this.cfg.camera = true;
+  this.min('1920x1080');
+};
+
+prot.fps = function(fps) {
+  this.cfg.fps = { min: fps, max: fps };
 };
 
 prot.hd = prot['720p'] = function() {

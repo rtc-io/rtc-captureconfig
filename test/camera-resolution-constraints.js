@@ -61,3 +61,66 @@ test('camera min:640x480 max:1280x720', expect({
     height: { min: 480, max: 720 }
   }
 }, format.STANDARD));
+
+test('camera ideal:640x480 ', expect({
+  audio: true,
+  video: {
+    mandatory: {},
+    optional: [
+      { maxWidth: 640 },
+      { maxHeight: 480 }
+    ]
+  }
+}, format.LEGACY));
+
+test('camera ideal:640x480', expect({
+  audio: true,
+  video: {
+    width: { ideal: 640 },
+    height: { ideal: 480 }
+  }
+}, format.STANDARD));
+
+test('camera ideal:640x480 min:320x240', expect({
+  audio: true,
+  video: {
+    mandatory: {},
+    optional: [
+      { minWidth: 320 },
+      { maxWidth: 640 },
+      { minHeight: 240 },
+      { maxHeight: 480 }
+    ]
+  }
+}, format.LEGACY));
+
+test('camera ideal:640x480 min:320x240', expect({
+  audio: true,
+  video: {
+    width: { ideal: 640, min: 320 },
+    height: { ideal: 480, min: 240 }
+  }
+}, format.STANDARD));
+
+test('camera exact:640x480 ', expect({
+  audio: true,
+  video: {
+    mandatory: {},
+    optional: [
+      { minWidth: 640 },
+      { maxWidth: 640 },
+      { width: 640 },
+      { minHeight: 480 },
+      { maxHeight: 480 },
+      { height: 480 }
+    ]
+  }
+}, format.LEGACY));
+
+test('camera exact:640x480', expect({
+  audio: true,
+  video: {
+    width: { exact: 640 },
+    height: { exact: 480 }
+  }
+}, format.STANDARD));
