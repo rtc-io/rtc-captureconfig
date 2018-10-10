@@ -1,7 +1,9 @@
 sudo: false
 language: node_js
 node_js:
-- 0.10
+- 6
+- lts/*
+- stable
 
 env:
   matrix:
@@ -29,4 +31,4 @@ after_failure:
 
 notifications:
   email:
-  - nathan.oehlman@nicta.com.au
+  - nathan+rtcio@coviu.com
