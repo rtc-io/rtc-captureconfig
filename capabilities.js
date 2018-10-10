@@ -17,6 +17,10 @@ if (capabilities.moz) {
 else if (browser.name === 'chrome') {
 	capabilities.constraintsType = (compareVersions(browser.version, '53.0.0') >= 0 ? 'standard' : 'legacy');
 }
+// Safari constraints handling
+else if (browser.name === 'safari') {
+	capabilities.constraintsType = (compareVersions(browser.version, '605.1.15') >= 0 ? 'standard' : 'legacy');
+}
 // Default constraints handling
 else {
 	capabilities.constraintsType = 'legacy';
