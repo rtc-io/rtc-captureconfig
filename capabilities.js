@@ -21,6 +21,10 @@ else if (browser.name === 'chrome') {
 else if (browser.name === 'safari') {
 	capabilities.constraintsType = (compareVersions(browser.version, '605.1.15') >= 0 ? 'standard' : 'legacy');
 }
+// iOS Safari constraints handling
+else if (browser.name === 'ios') {
+	capabilities.constraintsType = (compareVersions(browser.version, '11.0.0') >= 0 ? 'standard' : 'legacy');
+}
 // Default constraints handling
 else {
 	capabilities.constraintsType = 'legacy';
