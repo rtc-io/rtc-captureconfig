@@ -1,6 +1,6 @@
 'use strict';
 
-var browser = require('detect-browser');
+var browser = require('detect-browser').detect();
 var compareVersions = require('compare-versions')
 
 var capabilities = module.exports = {
@@ -19,7 +19,7 @@ else if (browser.name === 'chrome') {
 }
 // Safari constraints handling
 else if (browser.name === 'safari') {
-	capabilities.constraintsType = (compareVersions(browser.version, '605.1.15') >= 0 ? 'standard' : 'legacy');
+	capabilities.constraintsType = (compareVersions(browser.version, '12.0.0') >= 0 ? 'standard' : 'legacy');
 }
 // iOS Safari constraints handling
 else if (browser.name === 'ios') {
